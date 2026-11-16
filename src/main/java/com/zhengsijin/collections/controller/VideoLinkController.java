@@ -1,4 +1,4 @@
-package org.szmg.controller;
+package com.zhengsijin.collections.controller;
 
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import org.szmg.video.BilibiliVideoUrlParser;
-import org.szmg.video.ParsedVideoLink;
+import com.zhengsijin.collections.video.BilibiliVideoUrlParser;
+import com.zhengsijin.collections.video.ParsedVideoLink;
 
 @RestController
 public class VideoLinkController {

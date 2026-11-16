@@ -29,8 +29,8 @@
 ```text
 collections-project/
 ├─ pom.xml                                  Maven、Spring Boot、Spring MVC、Undertow
-├─ src/main/java/org/szmg/
-│  ├─ DromaraApplication.java              程序入口
+├─ src/main/java/com/zhengsijin/collections/
+│  ├─ CollectionsApplication.java              程序入口
 │  ├─ controller/HelloController.java       第一个 HTTP 接口
 │  ├─ controller/VideoLinkController.java   B 站链接解析接口
 │  └─ video/                              链接解析与结果类型
@@ -56,17 +56,17 @@ mvn clean package
 mvn spring-boot:run
 ```
 
-看到 `Undertow started on port 8080` 和 `Started DromaraApplication` 表示启动成功。浏览器打开 `http://localhost:8080/` 会显示 404，因为没有配置根路径接口；访问 `http://localhost:8080/hello?name=小明` 可以看到 JSON 问候语。用 `Ctrl+C` 停止服务。
+看到 `Undertow started on port 8080` 和 `Started CollectionsApplication` 表示启动成功。浏览器打开 `http://localhost:8080/` 会显示 404，因为没有配置根路径接口；访问 `http://localhost:8080/hello?name=小明` 可以看到 JSON 问候语。用 `Ctrl+C` 停止服务。
 
-也可以在 IDEA 中右键 `DromaraApplication.java`，点击 **Run 'DromaraApplication'**。请确认运行配置使用 JDK 17；某些电脑的 PowerShell `java -version` 可能仍指向 Java 8。
+也可以在 IDEA 中右键 `CollectionsApplication.java`，点击 **Run 'CollectionsApplication'**。请确认运行配置使用 JDK 17；某些电脑的 PowerShell `java -version` 可能仍指向 Java 8。
 
 ## 第 4 步：读懂这次搭建的三个文件
 
 - `pom.xml`：Maven 读取它来下载依赖并打包；Spring Boot 父 POM 统一管理大部分依赖版本。
-- `DromaraApplication.java`：`main` 方法启动 Spring Boot；`@SpringBootApplication` 会扫描 `org.szmg` 及其子包。
+- `CollectionsApplication.java`：`main` 方法启动 Spring Boot；`@SpringBootApplication` 会扫描 `com.zhengsijin.collections` 及其子包。
 - `application.yml`：设置应用名和 HTTP 端口。当前没有数据库地址、账号或密钥。
 
-现在已有 `org.szmg.controller.HelloController` 作为第一个 Spring MVC 接口。后续可逐步学习 Service、请求参数、返回值和异常处理。当前不需要数据库、Redis 或其他外部服务即可启动。
+现在已有 `com.zhengsijin.collections.controller.HelloController` 作为第一个 Spring MVC 接口。后续可逐步学习 Service、请求参数、返回值和异常处理。当前不需要数据库、Redis 或其他外部服务即可启动。
 
 ## 用 Postman 测试 B 站链接解析
 

@@ -3,10 +3,12 @@
 ## 项目目标与当前状态
 
 - 本项目位于 `D:\IdeaProjects\collections-project`，是学习 `D:\szsk\szmg-bms-boot` 所用框架与工具的**单模块**练习项目，不复制参考项目的业务代码和多模块结构。
-- 目前使用 Java 17、Maven、Spring Boot 3.5.9、Spring MVC、Undertow。已实现 `GET /hello?name=小明`，返回 JSON 问候语。
+- 目前使用 Java 17、Maven、Spring Boot 3.5.9、Spring MVC、Undertow、MySQL、MyBatis-Plus、Lombok。已实现 `GET /hello`、`POST /api/videos/parse-link`，以及播放源的新增和按 ID 查询接口。播放源采用 Controller → Service → Mapper → MySQL；建表脚本是 `sql/init.sql`。`VideoSource` 用 Lombok `@Data` 生成常用方法。
+- 数据库为本机 `collections_project`，程序通过环境变量 `COLLECTIONS_DB_PASSWORD` 读取 MySQL root 密码；不要把密码写进代码、文档或 Git。IDEA 启动时要在 `CollectionsApplication` 运行配置中设置该环境变量。
 - 当前 Java 根包及 Maven `groupId` 为 `com.zhengsijin.collections`，启动类是 `src/main/java/com/zhengsijin/collections/CollectionsApplication.java`。
 - 本项目的 GitHub 目标仓库是公开的 `zheng-sijin/collections-project`。`D:\IdeaProjects` 本身也有一个 Git 仓库，不能将父目录仓库当作本项目的目标仓库；每次 Git 操作前先核实当前目录与远程地址。
 - 用户是边开发边学习。每次只处理一个易理解的小步骤；由 agent 写代码，再按文件、关键语句、运行方式和预期结果细讲实现。不要一次引入一堆框架或写大量业务代码。
+- 用户希望逐步学习常用框架和工具；在对应功能需要时引入并讲清用途，包括 Lombok 等，不要因为当前业务简单而遗漏已明确要求学习的工具。
 - 用户使用 Postman 测试接口。讲解接口验证时优先给出 Postman 的方法、URL、请求体和预期响应。
 
 ## 必须遵守的七步流程

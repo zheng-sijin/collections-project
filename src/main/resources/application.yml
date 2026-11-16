@@ -1,6 +1,11 @@
 spring:
   application:
     name: collections-project
+  datasource:
+    url: jdbc:mysql://localhost:3306/collections_project?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: ${COLLECTIONS_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 server:
   port: 8080

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import com.zhengsijin.collections.common.Result;
 import com.zhengsijin.collections.video.VideoSource;
 import com.zhengsijin.collections.video.VideoSourceService;
 
@@ -23,12 +24,12 @@ public class VideoSourceController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VideoSource create(@RequestBody VideoSource source) {
-        return service.create(source);
+    public Result<VideoSource> create(@RequestBody VideoSource source) {
+        return Result.created(service.create(source));
     }
 
     @GetMapping("/{id}/play")
-    public VideoSource getPlayback(@PathVariable Long id) {
-        return service.getPlayback(id);
+    public Result<VideoSource> getPlayback(@PathVariable Long id) {
+        return Result.ok(service.getPlayback(id));
     }
 }

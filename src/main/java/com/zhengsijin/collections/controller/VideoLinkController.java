@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import com.zhengsijin.collections.common.Result;
 import com.zhengsijin.collections.video.BilibiliVideoUrlParser;
 import com.zhengsijin.collections.video.ParsedVideoLink;
 
@@ -13,9 +14,9 @@ import com.zhengsijin.collections.video.ParsedVideoLink;
 public class VideoLinkController {
 
     @PostMapping("/api/videos/parse-link")
-    public ParsedVideoLink parseLink(@RequestBody Map<String, String> request) {
+    public Result<ParsedVideoLink> parseLink(@RequestBody Map<String, String> request) {
         try {
-            return BilibiliVideoUrlParser.parse(request.get("url"));
+            return Result.ok(BilibiliVideoUrlParser.parse(request.get("url")));
         } catch (IllegalArgumentException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage(), exception);
         }

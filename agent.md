@@ -4,6 +4,7 @@
 
 - 本项目位于 `D:\IdeaProjects\collections-project`，是学习 `D:\szsk\szmg-bms-boot` 所用框架与工具的**单模块**练习项目，不复制参考项目的业务代码和多模块结构。
 - 目前使用 Java 17、Maven、Spring Boot 3.5.9、Spring MVC、Undertow、MySQL、MyBatis-Plus、Lombok。已实现 `GET /hello`、`POST /api/videos/parse-link`，以及播放源的新增和按 ID 查询接口。播放源采用 Controller → Service → Mapper → MySQL；建表脚本是 `sql/init.sql`。`VideoSource` 用 Lombok `@Data` 生成常用方法。
+- 当前开发目标分两小步：先用 `common/Result.java` 统一成功响应的 `code`、`message`、`data`，再加入全局异常处理器统一错误响应。第 1 小步代码已完成，待文档确认与提交；第 2 小步尚未开发。`code` 使用 HTTP 状态码，业务预期错误的 `message` 由抛错处传入，意外 500 使用通用提示。
 - 数据库为本机 `collections_project`，程序通过环境变量 `COLLECTIONS_DB_PASSWORD` 读取 MySQL root 密码；不要把密码写进代码、文档或 Git。IDEA 启动时要在 `CollectionsApplication` 运行配置中设置该环境变量。
 - 当前 Java 根包及 Maven `groupId` 为 `com.zhengsijin.collections`，启动类是 `src/main/java/com/zhengsijin/collections/CollectionsApplication.java`。
 - 本项目的 GitHub 目标仓库是公开的 `zheng-sijin/collections-project`。`D:\IdeaProjects` 本身也有一个 Git 仓库，不能将父目录仓库当作本项目的目标仓库；每次 Git 操作前先核实当前目录与远程地址。

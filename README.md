@@ -64,11 +64,13 @@ mvn spring-boot:run
 
 - `pom.xml`：Maven 读取它来下载依赖并打包；Spring Boot 父 POM 统一管理大部分依赖版本。
 - `CollectionsApplication.java`：`main` 方法启动 Spring Boot；`@SpringBootApplication` 会扫描 `com.zhengsijin.collections` 及其子包。
-- `application.yml`：设置应用名和 HTTP 端口。当前没有数据库地址、账号或密钥。
+- `application.yml`：设置应用名、HTTP 端口和本机 MySQL 连接；密码从 `COLLECTIONS_DB_PASSWORD` 环境变量读取，不写进项目文件。
 
 现在已有 `com.zhengsijin.collections.controller.HelloController` 作为第一个 Spring MVC 接口。播放源接口使用 Service 处理校验与业务逻辑，使用 MyBatis-Plus Mapper 访问 MySQL。当前程序需要本机 MySQL 和 `COLLECTIONS_DB_PASSWORD` 环境变量才能正常使用播放源接口。
 
 `VideoSource.java` 使用 Lombok 的 `@Data`：编译时自动生成 getter、setter、`toString()`、`equals()` 和 `hashCode()`。这些方法会出现在编译后的 `.class` 文件里，因此源码中不用重复手写。
+
+成功接口现在统一返回 `{"code":200,"message":"成功","data":...}`。新增播放源仍返回 HTTP 201，响应体的 `code` 也是 201。业务内容保留原样，放在 `data` 中；全局错误响应尚待下一步接入。
 
 ## 用 Postman 测试 B 站链接解析
 
@@ -79,7 +81,7 @@ mvn spring-boot:run
    {"url":"https://www.bilibili.com/video/BV1AD421K7Ha/?p=2"}
    ```
 
-3. 点击 **Send**。预期状态是 `200 OK`，响应为 `{"bvid":"BV1AD421K7Ha","page":2}`。
+3. 点击 **Send**。预期状态是 `200 OK`，响应为 `{"code":200,"message":"成功","data":{"bvid":"BV1AD421K7Ha","page":2}}`。
 
 也可以把 `url` 改为单独的 `BV1AD421K7Ha`，此时 `page` 为 `1`。输入其他网站地址或 `p=0` 时，预期状态为 `400 Bad Request`。本接口只解析输入文字，不访问 B 站，也不保存视频信息。
 
@@ -93,6 +95,6 @@ mvn spring-boot:run
    {"title":"测试视频","episodeNumber":1,"lineName":"线路一","playType":"MP4","playUrl":"https://example.com/test.mp4"}
    ```
 
-4. 预期返回 HTTP 201，响应中含数据库生成的 `id`。用这个 ID 发送 GET `http://localhost:8080/api/videos/sources/{id}/play`，预期取回同一条记录；不存在的 ID 返回 HTTP 404。
+4. 预期返回 HTTP 201，响应体的 `code` 为 201，`data.id` 是数据库生成的 ID。用这个 ID 发送 GET `http://localhost:8080/api/videos/sources/{id}/play`，预期在 `data` 中取回同一条记录；不存在的 ID 返回 HTTP 404。
 
 `playType` 目前仅接受 `MP4` 或 `HLS`；这里只保存链接，不保证第三方视频地址能播放。上面的 `example.com` 地址仅用于测试数据写入。
